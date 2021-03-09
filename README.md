@@ -76,8 +76,8 @@ addi $s1, $s0, 20    	# $s1 = $s0 + 20 = 42
 
 |               | OP    | RS     | RT    | IMM                 |
 |---------------|-------|--------|-------|---------------------|
-| Field Values  |       |        |       |                     |
-| Machine Code  |       |        |       |                     |
+| Field Values  | (8)   |  16    | 17    |  20                 |
+| Machine Code  |001000 | 100000 | 100001| 0000 0000 0001 0100 |
 | Size of Field |6 bits	| 5 bits | 5 bits| 16 bits             |
 <br>
 ### 2-1.2 Assemble the following instruction, put your answers in the table below:
@@ -88,8 +88,8 @@ sll  $s1, $s1, 2       # $s1 = $s1 << 2
 
 |               | OP    | RS     | RT    | IMM                 |
 |---------------|-------|--------|-------|---------------------|
-| Field Values  |       |        |       |                     |
-| Machine Code  |       |        |       |                     |
+| Field Values  | (0)   | 17     | 17    | 2                   |
+| Machine Code  |000000 | 10001  | 10001 | 0000 0000 0000 0010 |
 | Size of Field |6 bits	| 5 bits | 5 bits| 16 bits             |
 
 <br>
@@ -101,8 +101,8 @@ sw   $s1, 0x10($t2)    # store contents of $s1 to (0x10+$t2)
 
 |               | OP    | RS     | RT    | IMM                 |
 |---------------|-------|--------|-------|---------------------|
-| Field Values  |       |        |       |                     |
-| Machine Code  |       |        |       |                     |
+| Field Values  |  (43) | 17     | 27    | 17                  |
+| Machine Code  |101011 | 10001  | 11011 | 0000 0000 0001 0001 |
 | Size of Field |6 bits	| 5 bits | 5 bits| 16 bits             |
 
 
@@ -113,42 +113,42 @@ sw   $s1, 0x10($t2)    # store contents of $s1 to (0x10+$t2)
 * Store the integer 0xA1B2C3D4 in the following memory starting at memory location 0x1000102C. 
 * IMPORTANT: Memory locations increase from bottom to top and from left to right... 
 
-| BYTE ADDRESS	| Byte +0	| Byte +1	| Byte +2	| Byte +3 |
+| BYTE ADDRESS	| Byte +0   | Byte +1	| Byte +2   | Byte +3 |
 |---------------|-----------|-----------|-----------|---------|
 | 0x10001034    |           |           |           |         |				
 | 0x10001030    |           |           |           |         |				
-| 0x1000102C    |           |           |           |         |				
+| 0x1000102C    |    D4     |  C3       |   B2      |  A1     |				
 <br>
 ### 2-2-2 Little endian machine: 
 * Store the null terminated string “Endian” in the following memory starting at memory location 0x1000102C. 
 * Memory locations increase from bottom to top and from left to right... 
 
-| BYTE ADDRESS	| Byte +0	| Byte +1	| Byte +2	| Byte +3 |
+| BYTE ADDRESS	| Byte +0   | Byte +1	| Byte +2   | Byte +3 |
 |---------------|-----------|-----------|-----------|---------|
 | 0x10001034    |           |           |           |         |				
-| 0x10001030    |           |           |           |         |				
-| 0x1000102C    |           |           |           |         |				
+| 0x10001030    |     d     |    n      |      e    |         |				
+| 0x1000102C    |    \n     |    n      |      a    |     i   |				
 <br>
 ### 2-2-3 Big endian machine: 
 * Store the integer 0xA1B2C3D4 in the following memory starting at memory location 0x1000102C. 
 * Memory locations increase from bottom to top and from left to right... 
 
-| BYTE ADDRESS	| Byte +0	| Byte +1	| Byte +2	| Byte +3 |
+| BYTE ADDRESS	| Byte +0   | Byte +1	| Byte +2   | Byte +3 |
 |---------------|-----------|-----------|-----------|---------|
 | 0x10001034    |           |           |           |         |				
 | 0x10001030    |           |           |           |         |				
-| 0x1000102C    |           |           |           |         |				
+| 0x1000102C    |    A1     |    B2     |    C3     |   D4    |				
 <br>
 ### 2-2-4 Big endian machine: 
 * Store the null terminated string “Endian” in the following memory starting at memory location 0x1000102C. 
 * Memory locations increase from bottom to top and from left to right... 
 
 
-| BYTE ADDRESS	| Byte +0	| Byte +1	| Byte +2	| Byte +3 |
+| BYTE ADDRESS	| Byte +0   | Byte +1	| Byte +2   | Byte +3 |
 |---------------|-----------|-----------|-----------|---------|
 | 0x10001034    |           |           |           |         |				
-| 0x10001030    |           |           |           |         |				
-| 0x1000102C    |           |           |           |         |
+| 0x10001030    |           |     e     |     n     |    d    |				
+| 0x1000102C    |     i     |     a     |     n     |    \n   |
 
 # Exercise 2-3: Dissassembling MIPS 
 
@@ -177,12 +177,12 @@ Repeat the process for the other instructions.
 Consider the following program. Convert it from MIPS machine code to assembler using Appendix B of your textbook. 
 
 ```
- ADDRESS   MACHINE CODE
-[0040002c] 20100000  
-[00400030] 2011000a
-[00400034] 02118020  
-[00400038] 2231ffff  
-[0040003c] 1e20fffe  
+ ADDRESS   MACHINE CODE -6op, 5rs, 5rt, 16imm
+[0040002c] 20100000     0010 0000 0001 0000 0000 0000 0000 0000  
+[00400030] 2011000a     0010 0000 0001 0001 0000 0000 0000 1010  
+[00400034] 02118020     0000 0010 0001 0001 1000 0000 0010 0000      
+[00400038] 2231ffff     0010 0010 0011 0001 1111 1111 1111 1111 
+[0040003c] 1e20fffe     0001 1110 0010 0000 1111 1111 1111 1110  
 ```
 
 You should be aware that this code was assembled using QTSPIM, and thus, 
@@ -196,9 +196,11 @@ You should be aware that this code was assembled using QTSPIM, and thus,
 
 ```mips
 # Put your mips assembly language code immediately after this line
-
-
-
+addi, $s0, $0, 0
+addi, $s1, $0, 10
+add, $s1, $s0,$s1
+addi,
+bgtz,
 ```
 
 
@@ -209,7 +211,12 @@ You should be aware that this code was assembled using QTSPIM, and thus,
 
 ```cpp
 // Put your C++ code after this line:
-
+int x = 0
+int y = 16
+int w = x+y
+if( <0){
+	send help;
+}
 
 ```
 
