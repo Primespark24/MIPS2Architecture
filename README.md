@@ -13,10 +13,10 @@
 ### Grade Break Down
 | Part                             |   | Points  |
 |----------------------------------|---|---------|
-| MIPS_2-1 - Assembling MIPS       |   | 20 pts  |    
-| MIPS_2-2 - Little/Big Endian     |   | 10 pts  |   
-| MIPS_2-3 - Dissassembling MIPS   |   | 20 pts  |   
-| Total                            |   | 50 pts  |
+| MIPS_2-1 - Assembling MIPS       | 16  | 20 pts  |    
+| MIPS_2-2 - Little/Big Endian     | 8  | 10 pts  |   
+| MIPS_2-3 - Dissassembling MIPS   | 16  | 20 pts  |   
+| Total                            | 40  | 50 pts  |
 
 NOTE: MIPS_2-4 the group project will be graded separately and will be worth 50 points as well. 
 
